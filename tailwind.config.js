@@ -15,6 +15,20 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: {
+                    "50":  "#F1EEFF",
+                    "100": "#a79ee5",
+                    "200": "#988ee1",
+                    "300": "#897ddd",
+                    "400": "#7b6dd8",
+                    "500": "#6c5dd4",
+                    "600": "#6154bf",
+                    "700": "#564aaa",
+                    "800": "#4c4194",
+                    "900": "#41387f"
+                  },
+            },
         },
     },
 

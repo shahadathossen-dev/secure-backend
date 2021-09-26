@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,3 +28,7 @@ use Inertia\Inertia;
 Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+// Resource Route
+Route::resource('categories', CategoryController::class);
+
