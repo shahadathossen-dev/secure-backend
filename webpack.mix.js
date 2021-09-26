@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,15 +12,31 @@ const mix = require('laravel-mix');
  |
  */
 
+// mix.js('resources/js/app.js', 'public/js').vue()
+//     .postCss('resources/css/app.css', 'public/css', [
+//         require('postcss-import'),
+//         require('tailwindcss'),
+//     ])
+//     .webpackConfig(require('./webpack.config'));
+
+// if (mix.inProduction()) {
+//     mix.version();
+// }
+
 mix.js('resources/js/app.js', 'public/js').vue()
+    .sass('resources/scss/app.scss', 'public/css')
+    .options({
+        postCss: [tailwindcss('./tailwind.config.js')],
+    })
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config'))
+    .version();
 
 if (mix.inProduction()) {
     mix.version();
 }
 
-mix.browserSync('http://divinegemz-admin.test')
+mix.browserSync('http://divinegemz-backend.test')
