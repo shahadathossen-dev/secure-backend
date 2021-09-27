@@ -4,6 +4,8 @@ import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import IndexView from "@/Views/IndexView.vue";
+import Datatable from "@/Jetstream/Datatable.vue";
+
 
 export default function (app) {
     app.component('welcome', Welcome);
@@ -13,5 +15,6 @@ export default function (app) {
     app.component('dropdown', JetDropdown);
     app.component('dropdownLink', JetDropdownLink);
     app.component('indexView', IndexView);
+    app.component('DataTable', Datatable);
 
 }
