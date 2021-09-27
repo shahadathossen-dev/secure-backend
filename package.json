@@ -32,6 +32,7 @@
         "webpack": "^5.54.0"
     },
     "dependencies": {
+        "vue-sweetalert2": "^5.0.2",
         "vuex": "^4.0.2"
     }
 }

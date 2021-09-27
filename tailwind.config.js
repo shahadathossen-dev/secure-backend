@@ -15,6 +15,12 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+
+            screens: {
+                'xs': '475px',
+                ...defaultTheme.screens,
+            },
+
             colors: {
                 primary: {
                     "50":  "#F1EEFF",
@@ -27,7 +33,11 @@ module.exports = {
                     "700": "#564aaa",
                     "800": "#4c4194",
                     "900": "#41387f"
-                  },
+                },
+            },
+
+            borderRadius: {
+                'primary': '10px',
             },
         },
     },
