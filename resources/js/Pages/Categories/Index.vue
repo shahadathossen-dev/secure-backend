@@ -1,9 +1,9 @@
 <template>
     <index-view title="Categories">
-        <datatable :data="categories" searchRoute="categories.index">
+        <datatable :data="categories" searchRoute="categories.index" :filters="filters">
             <!-- Left Header -->
             <template #left-header>
-                <search-input></search-input>
+                <search-input v-model="filters.search"></search-input>
             </template>
 
             <template #right-header>
@@ -67,6 +67,8 @@ import DeleteIcon from "@/Icons/DeleteIcon.vue";
 export default {
     props: {
         categories: Object,
+		query: Object,
+        can: Object,
     },
     components: {
         IndexView,
@@ -79,6 +81,17 @@ export default {
         EditIcon,
         DeleteIcon,
     },
+    data() {
+        return {
+            filters: {
+                search: this.query.search,
+                // status: this.query.status,
+            },
+        }
+    },
+    mounted() {
+        console.log(this.can)
+    }
 };
 </script>
 

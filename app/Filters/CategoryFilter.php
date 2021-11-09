@@ -17,5 +17,5 @@ class CategoryFilter extends Filter
      *
      * @var array
      */
-    public $searchColumns = ['id'];
+    public $searchColumns = ['id', 'name', 'description'];
 }

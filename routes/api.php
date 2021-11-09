@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\PackageController;
+use App\Http\Resources\ApiResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:customers')->get('/user', function (Request $request) {
+    return new ApiResource($request->user());
 });
+
+Route::middleware('auth:customers')->post('stripe/checkout', [PackageController::class, 'stripeCeckout']);
+Route::middleware('auth:customers')->post('paypal/checkout', [PackageController::class, 'paypalCheckout']);
+Route::get('countries', [CountryController::class, 'index']);

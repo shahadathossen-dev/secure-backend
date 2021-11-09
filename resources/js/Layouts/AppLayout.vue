@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import Sidebar from "@/Partials/Sidebar.vue";
+import Sidebar from "@/Layouts/Partials/Sidebar.vue";
 import { defineComponent } from "vue";
 import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import JetBanner from "@/Jetstream/Banner.vue";
@@ -60,10 +60,10 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import MenuIcon from "@/Icons/MenuIcon.vue";
-import SettingsDropdown from "@/Partials/SettingsDropdown.vue";
-import NotificationDropdown from "@/Partials/NotificationDropdown.vue";
-import ConfigDropdown from "@/Partials/ConfigDropdown.vue";
-import ChatNotificationDropdown from "@/Partials/ChatNotificationDropdown.vue";
+import SettingsDropdown from "@/Layouts/Partials/SettingsDropdown.vue";
+import NotificationDropdown from "@/Layouts/Partials/NotificationDropdown.vue";
+import ConfigDropdown from "@/Layouts/Partials/ConfigDropdown.vue";
+import ChatNotificationDropdown from "@/Layouts/Partials/ChatNotificationDropdown.vue";
 import SearchInput from "@/Jetstream/SearchInput.vue";
 
 export default defineComponent({

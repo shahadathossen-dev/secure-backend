@@ -66,5 +66,12 @@ export default {
                 .post(this.route(route, id));
             return;
         },
+
+        // Check permissions
+        hasPermissions(permissions) {
+            return permissions.some(
+                (permission) => this.$page.props.can[permission]
+            );
+        },
     }
 }

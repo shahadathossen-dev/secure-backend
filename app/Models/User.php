@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\CamelCasing;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,14 +10,18 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens,
+        HasFactory,
+        HasProfilePhoto,
+        Notifiable,
+        HasRoles,
+        CamelCasing,
+        TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,6 +61,95 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_url', 'role',
     ];
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['roles', 'country'];
+
+    /**
+     * Get the custom permissions name of the resource
+     *
+     * @var array
+     */
+    public static $permissions = ['view', 'view-any', 'create', 'update', 'delete'];
+
+    /**
+     * Get the human readable name of the resource
+     *
+     * @return string
+     */
+    public static function readableName()
+    {
+        $string = Str::kebab((new \ReflectionClass(get_called_class()))->getShortName());
+        return Str::plural($string);
+    }
+
+    /**
+     * Scope a query without super admins.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithoutSuperAdmin($query)
+    {
+        return $query->whereHas('roles', function ($role) {
+            $role->where('name', '!=', Role::SUPER_ADMIN);
+        });
+    }
+
+    /**
+     * Determines if the User is a Super admin
+     *
+     * @return boolean
+     */
+    public function isSuperAdmin()
+    {
+        return $this->hasRole(Role::SUPER_ADMIN);
+    }
+
+
+    /**
+     * Get the role name attribute
+     *
+     * @return string
+     */
+    public function getRoleAttribute()
+    {
+        return $this->roles->first();
+    }
+
+    /**
+     * Determines one-to-many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get user's timezone
+     *
+     * @return string
+     */
+    public function getCountryNameAttribute()
+    {
+        return $this->country ? $this->country->name : 'Bangladesh';
+    }
+
+    /**
+     * Get user's timezone
+     *
+     * @return string
+     */
+    public function getTimezoneAttribute()
+    {
+        return $this->country ? $this->country->zoneName : 'Asia/Dhaka';
+    }
 }

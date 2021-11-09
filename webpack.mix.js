@@ -12,17 +12,6 @@ const tailwindcss = require('tailwindcss');
  |
  */
 
-// mix.js('resources/js/app.js', 'public/js').vue()
-//     .postCss('resources/css/app.css', 'public/css', [
-//         require('postcss-import'),
-//         require('tailwindcss'),
-//     ])
-//     .webpackConfig(require('./webpack.config'));
-
-// if (mix.inProduction()) {
-//     mix.version();
-// }
-
 mix.js('resources/js/app.js', 'public/js').vue()
     .sass('resources/scss/app.scss', 'public/css')
     .options({
@@ -39,4 +28,4 @@ if (mix.inProduction()) {
     mix.version();
 }
 
-mix.browserSync('http://divinegemz-backend.test')
+mix.browserSync('http://secure-admin.test')
