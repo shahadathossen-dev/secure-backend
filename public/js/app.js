@@ -21533,7 +21533,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log(this.can);
+    console.log(this.$page.props);
   }
 });
 

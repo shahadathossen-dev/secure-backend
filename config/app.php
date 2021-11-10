@@ -182,6 +182,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
         App\Providers\ValidationServiceProvider::class,
+        App\Providers\FacadeServiceProvider::class,
 
     ],
 

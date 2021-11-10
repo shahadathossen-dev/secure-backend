@@ -90,7 +90,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.can)
+        console.log(this.$page.props)
     }
 };
 </script>
