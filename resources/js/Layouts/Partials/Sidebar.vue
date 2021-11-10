@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import SidebarItem from "@/Layouts/Partials/SidebarItem.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 

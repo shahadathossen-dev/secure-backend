@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CountryController extends Controller
 {
@@ -14,7 +15,9 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return Country::all();
+        return $countries = Cache::get('countries', function () {
+            return Country::all();
+        });
     }
 
     /**
@@ -81,27 +84,5 @@ class CountryController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function seedCountries(Request $request)
-    {
-        $countries = $request->all();
-        foreach ($countries as $key => $country) {
-            Country::updateOrcreate([
-                'country_code' => $country['country_code'] ?? $country['alpha2'],
-                'alpha2' => $country['alpha2'] ?? null,
-                'alpha3' => $country['alpha3'] ?? null,
-                'country_calling_codes' => json_encode($country['countryCallingCodes']) ?? null,
-                'currencies' => json_encode($country['currencies']) ?? null,
-                'emoji' => $country['emoji'] ?? null,
-                'ioc' => $country['ioc'] ?? null,
-                'languages' => json_encode($country['languages']) ?? null,
-                'name' => $country['name'] ?? null,
-                'status' => $country['status'] ?? null,
-                'zone_id' => $country['zoneId'] ?? null,
-                'zone_name' => $country['zoneName'] ?? null,
-            ]);
-        }
-        return true;
     }
 }
