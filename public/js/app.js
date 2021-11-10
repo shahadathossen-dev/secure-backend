@@ -22488,8 +22488,8 @@ var _hoisted_1 = {
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "stroke-linecap": "round",
   "stroke-linejoin": "round",
-  "stroke-width": "2",
-  d: "M4 6h16M4 12h16M4 18h16"
+  "stroke-width": "1.5",
+  d: "M4 6h16M4 12h16M4 18h7"
 }, null, -1
 /* HOISTED */
 );
