@@ -66,7 +66,7 @@ class VerifyEmail extends Notification
 
         // Convert url to frontend domain
         $fullPath = substr($signedRoute, strpos($signedRoute, 'email'), strlen($signedRoute));
-        $frontendUrl = env('FRONTEND_URL', 'http://localhost:3000') . "/{$fullPath}";
+        $frontendUrl = config('app.frontend_url') . "/{$fullPath}";
 
         return $frontendUrl;
     }

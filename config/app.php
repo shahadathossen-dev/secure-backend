@@ -56,7 +56,7 @@ return [
     'url' => env('APP_URL', 'http://admin.securewebvpn.net'),
 
     // Frontend URL
-    'frontend_url' => env('APP_FRONTEND_URL', 'http://app.securewebvpn.net'),
+    'frontend_url' => env('FRONTEND_URL', 'http://app.securewebvpn.net'),
 
     'asset_url' => env('ASSET_URL', null),
 
