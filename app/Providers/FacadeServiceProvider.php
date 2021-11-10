@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class FacadeServiceProvider extends ServiceProvider
@@ -23,6 +24,8 @@ class FacadeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        App::bind('helper', function () {
+            return new \App\Helpers\Helper;
+        });
     }
 }
