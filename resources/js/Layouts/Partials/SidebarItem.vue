@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import HomeIcon from "@/icons/HomeIcon.vue";
+import HomeIcon from "@/Icons/HomeIcon.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 export default {
   components: {
