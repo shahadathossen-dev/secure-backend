@@ -15,7 +15,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return $countries = Cache::get('countries', function () {
+        return $countries = Cache::rememberForever('countries', function () {
             return Country::all();
         });
     }
