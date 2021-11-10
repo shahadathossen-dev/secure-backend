@@ -53,10 +53,10 @@ return [
     */
 
     // Backend URL
-    'url' => env('APP_URL', 'http://localhost:8000'),
+    'url' => env('APP_URL', 'http://admin.securewebvpn.net'),
 
     // Frontend URL
-    'frontend_url' => env('APP_FRONTEND_URL', 'http://localhost:3000'),
+    'frontend_url' => env('APP_FRONTEND_URL', 'http://app.securewebvpn.net'),
 
     'asset_url' => env('ASSET_URL', null),
 
