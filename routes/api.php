@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CountryController;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Resources\ApiResource;
 use Illuminate\Http\Request;
@@ -25,3 +25,4 @@ Route::middleware('auth:customers')->get('/user', function (Request $request) {
 Route::middleware('auth:customers')->post('stripe/checkout', [PackageController::class, 'stripeCeckout']);
 Route::middleware('auth:customers')->post('paypal/checkout', [PackageController::class, 'paypalCheckout']);
 Route::get('countries', [CountryController::class, 'index']);
+Route::get('location', [LocationController::class, 'getLocation']);

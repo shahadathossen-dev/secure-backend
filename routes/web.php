@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,4 +33,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 // Resource Route
 Route::resource('categories', CategoryController::class);
-
+Route::get('location', [LocationController::class, 'getLocation']);
