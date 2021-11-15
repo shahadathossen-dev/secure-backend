@@ -10,10 +10,10 @@ class LocationController extends Controller
     public function getLocation(Request $request)
     {
         $ip = $request->ip();
-        $key = "gYCHqT7Al60y1pw";
+        $key = env('LOCATION_API_KEY');
 
         try {
-            $data = json_decode(file_get_contents("https://pro.ip-api.com//json/37.111.218.162?key=$key"));
+            $data = json_decode(file_get_contents("https://pro.ip-api.com//json/{$ip}?key=$key"));
         } catch (\Throwable $th) {
             return response(['status' => 'Location tracking failed'], 500);
         }
