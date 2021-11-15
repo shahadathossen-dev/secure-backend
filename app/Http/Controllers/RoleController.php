@@ -1,25 +1,37 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Models\Role;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\PermissionGroup;
+use Illuminate\Support\Facades\Redis;
 
-class {{ class }} extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (request()->user()->cannot('viewAny', {{ model }}::class)) {
+        if (request()->user()->cannot('viewAny', Role::class)) {
             abort(403);
         }
 
         // Start from here ...
+        return Inertia::render('Roles/Index', [
+            'roles' => Role::filter($request->all())
+                ->withoutSuperAdmin()
+                ->sorted()
+                ->paginate()
+                ->withQueryString(),
+            'query'  => $request->all(),
+        ]);
+
+
     }
 
     /**
@@ -29,11 +41,14 @@ class {{ class }} extends Controller
      */
     public function create()
     {
-        if (request()->user()->cannot('create', {{ model }}::class)) {
+        if (request()->user()->cannot('create', Role::class)) {
             abort(403);
         }
+ // Start from here ...
+        return Inertia::render('Roles/Create', [
+            'permissions' => PermissionGroup::orderBy('order', 'asc')->get()
+        ]);
 
-        // Start from here ...
     }
 
     /**
@@ -44,7 +59,7 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        if (request()->user()->cannot('create', {{ model }}::class)) {
+        if (request()->user()->cannot('create', Role::class)) {
             abort(403);
         }
 
@@ -54,12 +69,12 @@ class {{ class }} extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(Role $role)
     {
-        if (request()->user()->cannot('view', ${{ modelVariable }})) {
+        if (request()->user()->cannot('view', $role)) {
             abort(403);
         }
 
@@ -69,12 +84,12 @@ class {{ class }} extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(Role $role)
     {
-         if (request()->user()->cannot('update', ${{ modelVariable }})) {
+         if (request()->user()->cannot('update', $role)) {
             abort(403);
         }
 
@@ -85,12 +100,12 @@ class {{ class }} extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, Role $role)
     {
-         if (request()->user()->cannot('update', ${{ modelVariable }})) {
+         if (request()->user()->cannot('update', $role)) {
             abort(403);
         }
 
@@ -100,12 +115,12 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy({{ model }} ${{ modelVariable }})
+    public function destroy(Role $role)
     {
-         if (request()->user()->cannot('delete', ${{ modelVariable }})) {
+         if (request()->user()->cannot('delete', $role)) {
             abort(403);
         }
 

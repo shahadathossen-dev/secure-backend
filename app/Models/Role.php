@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use EloquentFilter\Filterable;
+use Jedrzej\Sortable\SortableTrait;
 use Spatie\Permission\Models\Role as Base;
 
 class Role extends Base
 {
+    use SortableTrait, Filterable;
     /**
      * Name of super admin role
      *

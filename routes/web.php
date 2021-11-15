@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\LocationController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 // Resource Route
 Route::resource('categories', CategoryController::class);
 Route::get('location', [LocationController::class, 'getLocation']);
+Route::resource('roles', RoleController::class);
+Route::resource('users', UserController::class);
