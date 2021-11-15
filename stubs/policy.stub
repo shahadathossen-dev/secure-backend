@@ -14,11 +14,11 @@ class {{ class }}
      * Determine whether the user can view any models.
      *
      * @param  \{{ namespacedUserModel }}  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function viewAny({{ user }} $user)
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('view-any-permissions');
     }
 
     /**
@@ -26,22 +26,22 @@ class {{ class }}
      *
      * @param  \{{ namespacedUserModel }}  $user
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function view({{ user }} $user, {{ model }} ${{ modelVariable }})
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('view-permissions');
     }
 
     /**
      * Determine whether the user can create models.
      *
      * @param  \{{ namespacedUserModel }}  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function create({{ user }} $user)
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('create-permissions');
     }
 
     /**
@@ -49,11 +49,11 @@ class {{ class }}
      *
      * @param  \{{ namespacedUserModel }}  $user
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function update({{ user }} $user, {{ model }} ${{ modelVariable }})
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('update-permissions');
     }
 
     /**
@@ -61,11 +61,11 @@ class {{ class }}
      *
      * @param  \{{ namespacedUserModel }}  $user
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function delete({{ user }} $user, {{ model }} ${{ modelVariable }})
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('delete-permissions');
     }
 
     /**
@@ -73,11 +73,11 @@ class {{ class }}
      *
      * @param  \{{ namespacedUserModel }}  $user
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function restore({{ user }} $user, {{ model }} ${{ modelVariable }})
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('restore-permissions');
     }
 
     /**
@@ -85,10 +85,10 @@ class {{ class }}
      *
      * @param  \{{ namespacedUserModel }}  $user
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function forceDelete({{ user }} $user, {{ model }} ${{ modelVariable }})
     {
-        //
+        return $user->isSuperAdmin() || $user->hasPermissionTo('force-delete-permissions');
     }
 }

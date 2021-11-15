@@ -1,25 +1,34 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Models\User;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (request()->user()->cannot('viewAny', {{ model }}::class)) {
+        if (request()->user()->cannot('viewAny', User::class)) {
             abort(403);
         }
 
         // Start from here ...
+              // Start from here ...
+              return Inertia::render('Users/Index', [
+                'users' => User::filter($request->all())
+                    ->withoutSuperAdmin()
+                    ->sorted()
+                    ->paginate()
+                    ->withQueryString(),
+                'query'  => $request->all(),
+            ]);
     }
 
     /**
@@ -29,7 +38,7 @@ class {{ class }} extends Controller
      */
     public function create()
     {
-        if (request()->user()->cannot('create', {{ model }}::class)) {
+        if (request()->user()->cannot('create', User::class)) {
             abort(403);
         }
 
@@ -44,7 +53,7 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        if (request()->user()->cannot('create', {{ model }}::class)) {
+        if (request()->user()->cannot('create', User::class)) {
             abort(403);
         }
 
@@ -54,12 +63,12 @@ class {{ class }} extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(User $user)
     {
-        if (request()->user()->cannot('view', ${{ modelVariable }})) {
+        if (request()->user()->cannot('view', $user)) {
             abort(403);
         }
 
@@ -69,12 +78,12 @@ class {{ class }} extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(User $user)
     {
-         if (request()->user()->cannot('update', ${{ modelVariable }})) {
+         if (request()->user()->cannot('update', $user)) {
             abort(403);
         }
 
@@ -85,12 +94,12 @@ class {{ class }} extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, User $user)
     {
-         if (request()->user()->cannot('update', ${{ modelVariable }})) {
+         if (request()->user()->cannot('update', $user)) {
             abort(403);
         }
 
@@ -100,12 +109,12 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy({{ model }} ${{ modelVariable }})
+    public function destroy(User $user)
     {
-         if (request()->user()->cannot('delete', ${{ modelVariable }})) {
+         if (request()->user()->cannot('delete', $user)) {
             abort(403);
         }
 

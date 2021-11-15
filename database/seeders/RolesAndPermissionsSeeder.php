@@ -22,6 +22,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $userResources = [
             // web
             \App\Models\User::class,
+            \App\Models\Role::class,
+
+
         ];
 
         foreach ($userResources as $key => $model) {

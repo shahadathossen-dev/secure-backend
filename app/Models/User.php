@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\Sortable;
 use App\Traits\CamelCasing;
+use Illuminate\Support\Str;
+use EloquentFilter\Filterable;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Str;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -21,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         Notifiable,
         HasRoles,
         CamelCasing,
-        TwoFactorAuthenticatable;
+        TwoFactorAuthenticatable, Filterable, Sortable;
 
     /**
      * The attributes that are mass assignable.
