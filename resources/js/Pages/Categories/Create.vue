@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import FormView from "../Views/FormView.vue";
+import FormView from "@/Views/FormView.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import JetInput from "@/Jetstream/Input.vue";
 import JetInputError from "@/Jetstream/InputError.vue";

@@ -52,7 +52,7 @@ export default {
                 this.form
                     .transform((data) => ({
                         ...data,
-                        updateAndContinue: true,
+                        updateAndContinue,
                         _method: "put"
                     }))
                     .post(this.route(route, id));

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\PermissionGroup;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class RoleController extends Controller
@@ -30,8 +32,6 @@ class RoleController extends Controller
                 ->withQueryString(),
             'query'  => $request->all(),
         ]);
-
-
     }
 
     /**
@@ -44,11 +44,10 @@ class RoleController extends Controller
         if (request()->user()->cannot('create', Role::class)) {
             abort(403);
         }
- // Start from here ...
+        // Start from here ...
         return Inertia::render('Roles/Create', [
             'permissions' => PermissionGroup::orderBy('order', 'asc')->get()
         ]);
-
     }
 
     /**
@@ -57,20 +56,33 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         if (request()->user()->cannot('create', Role::class)) {
             abort(403);
         }
 
-        // Start from here ...
+        DB::transaction(function () use ($request) {
+            $role = Role::create($request->only('name', 'description'));
+
+            if ($request->has('permissions')) {
+                $role->syncPermissions($request->permissions);
+            }
+        });
+        session()->flash('flash.banner', 'Role Created successfully.');
+        session()->flash('flash.bannerStyle', 'success');
+
+        if ($request->saveAndContinue) {
+            return back();
+        }
+        return redirect()->route('roles.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Role $role)
     {
@@ -79,51 +91,76 @@ class RoleController extends Controller
         }
 
         // Start from here ...
+
+        return Inertia::render('Roles/Show', [
+            'role' => $role->load('permissions'),
+            'permissions' => PermissionGroup::all(),
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Role $role)
     {
-         if (request()->user()->cannot('update', $role)) {
+        if (request()->user()->cannot('update', $role)) {
             abort(403);
         }
-
-        // Start from here ...
+        return Inertia::render('Roles/Edit', [
+            'permissions' => PermissionGroup::orderBy('order', 'asc')->get(),
+            'role'        => $role->append('permissions')
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\RoleRequest  $request
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-         if (request()->user()->cannot('update', $role)) {
+        if (request()->user()->cannot('update', $role)) {
             abort(403);
         }
+        DB::transaction(function () use ($request, $role) {
+            $role->update($request->only('name', 'description'));
 
-        // Start from here ...
+            if ($request->has('permissions')) {
+                $role->syncPermissions($request->permissions);
+            }
+        });
+
+        session()->flash('flash.banner', 'Role updated successfully.');
+        session()->flash('flash.bannerStyle', 'success');
+
+        if ($request->updateAndContinue) {
+            return back();
+        }
+
+        return redirect()->route('roles.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Role $role)
     {
-         if (request()->user()->cannot('delete', $role)) {
+        if (request()->user()->cannot('delete', $role)) {
             abort(403);
         }
+        if ($role->delete()) {
+            session()->flash('flash.banner', 'Deleted successfully.');
+            session()->flash('flash.bannerStyle', 'success');
+        }
 
-        // Start from here ...
+        return back();
     }
 }

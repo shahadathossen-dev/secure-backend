@@ -33,6 +33,16 @@ class FortifyServiceProvider extends ServiceProvider
             config()->set('fortify.guard', 'customers');
             config()->set('fortify.passwords', 'customers');
             // config()->set('fortify.middleware', ['api']);
+            config()->set('fortify.features', [
+                Features::registration(),
+                Features::resetPasswords(),
+                Features::emailVerification(),
+                Features::updateProfileInformation(),
+                Features::updatePasswords(),
+                // Features::twoFactorAuthentication([
+                //     'confirmPassword' => true,
+                // ]),
+            ]);
         }
     }
 

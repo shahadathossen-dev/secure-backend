@@ -34,7 +34,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 // Resource Route
-Route::resource('categories', CategoryController::class);
-Route::get('location', [LocationController::class, 'getLocation']);
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
+Route::resource('categories', CategoryController::class);
+Route::get('location', [LocationController::class, 'getLocation']);
+

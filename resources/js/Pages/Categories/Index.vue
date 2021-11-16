@@ -1,56 +1,60 @@
 <template>
-    <index-view title="Categories">
-        <datatable :data="categories" searchRoute="categories.index" :filters="filters">
-            <!-- Left Header -->
-            <template #left-header>
-                <search-input v-model="filters.search"></search-input>
-            </template>
+  <index-view title="Categories">
+    <datatable
+      :data="categories"
+      searchRoute="categories.index"
+      :filters="filters"
+    >
+      <!-- Left Header -->
+      <template #left-header>
+        <search-input v-model="filters.search"></search-input>
+      </template>
 
-            <template #right-header>
+      <template #right-header>
+        <!-- Admin -->
+        <button-link class="px-6 py-3 mr-4" :href="route('categories.create')">
+          <span class="mr-2">+ Add</span>
+          <span class="hidden md:inline">Category</span>
+        </button-link>
 
-                <!-- Admin -->
-                <button-link class="px-6 py-3 mr-4" :href="route('categories.create')">
-                    <span class="mr-2">+ Add</span>
-                    <span class="hidden md:inline">Category</span>
-                </button-link>
+        <!-- Fiter -->
+        <filter-dropdown>
+          <slot name="filter"></slot>
+        </filter-dropdown>
+      </template>
 
-                <!-- Fiter -->
-                <filter-dropdown>
-                    <slot name="filter"></slot>
-                </filter-dropdown>
-            </template>
+      <!--Table Rows -->
+      <template #default="{ rows }">
+        <table v-if="rows.length">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, index) in rows" :key="index">
+              <td>{{ row.id }}</td>
+              <td>{{ row.name }}</td>
+              <td>{{ row.description }}</td>
+              <td class="flex">
+                <Link class="mr-3" :href="route('categories.edit', row.id)">
+                  <edit-icon></edit-icon>
+                </Link>
 
-            <!--Table Rows -->
-            <template #default="{ rows }">
-                <table v-if="rows.length">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(row, index) in rows" :key="index">
-                            <td>{{row.id}}</td>
-                            <td>{{row.name}}</td>
-                            <td>{{row.description}}</td>
-                            <td class="flex">
-                                    <Link class="mr-3" :href="route('categories.edit', row.id)">
-                                    <edit-icon></edit-icon>
-                                    </Link>
-
-                                    <delete-icon @click="deleteResource(route('categories.destroy', row.id))"></delete-icon>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-            </template>
-            <template #nodata>No Category Found</template>
-        </datatable>
-    </index-view>
+                <delete-icon
+                  @click="deleteResource(route('categories.destroy', row.id))"
+                ></delete-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template #nodata>No Category Found</template>
+    </datatable>
+  </index-view>
 </template>
 
 <script>
@@ -65,33 +69,32 @@ import EditIcon from "@/Icons/EditIcon.vue";
 import DeleteIcon from "@/Icons/DeleteIcon.vue";
 
 export default {
-    props: {
-        categories: Object,
-		query: Object,
-        can: Object,
-    },
-    components: {
-        IndexView,
-        Link,
-        ButtonLink,
-        JetDangerButton,
-        Datatable,
-        SearchInput,
-        FilterDropdown,
-        EditIcon,
-        DeleteIcon,
-    },
-    data() {
-        return {
-            filters: {
-                search: this.query.search,
-                // status: this.query.status,
-            },
-        }
-    },
-    mounted() {
-        console.log(this.$page.props)
-    }
+  props: {
+    categories: Object,
+    query: Object,
+    can: Object,
+  },
+  components: {
+    IndexView,
+    Link,
+    ButtonLink,
+    JetDangerButton,
+    Datatable,
+    SearchInput,
+    FilterDropdown,
+    EditIcon,
+    DeleteIcon,
+  },
+  data() {
+    return {
+      filters: {
+        search: this.query.search,
+        // status: this.query.status,
+      },
+    };
+  },
+  mounted() {
+  },
 };
 </script>
 

@@ -20,15 +20,14 @@ class UserController extends Controller
         }
 
         // Start from here ...
-              // Start from here ...
-              return Inertia::render('Users/Index', [
-                'users' => User::filter($request->all())
-                    ->withoutSuperAdmin()
-                    ->sorted()
-                    ->paginate()
-                    ->withQueryString(),
-                'query'  => $request->all(),
-            ]);
+        return Inertia::render('Users/Index', [
+            'users' => User::filter($request->all())
+                ->withoutSuperAdmin()
+                ->sorted()
+                ->paginate()
+                ->withQueryString(),
+            'query'  => $request->all(),
+        ]);
     }
 
     /**
@@ -83,7 +82,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-         if (request()->user()->cannot('update', $user)) {
+        if (request()->user()->cannot('update', $user)) {
             abort(403);
         }
 
@@ -99,7 +98,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-         if (request()->user()->cannot('update', $user)) {
+        if (request()->user()->cannot('update', $user)) {
             abort(403);
         }
 
@@ -114,7 +113,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-         if (request()->user()->cannot('delete', $user)) {
+        if (request()->user()->cannot('delete', $user)) {
             abort(403);
         }
 
