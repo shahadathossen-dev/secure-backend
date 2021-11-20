@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CategoryRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,17 +31,19 @@ class CategoryRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'name'        => ['required', 'string', 'multi_space', Rule::unique('categories', 'name')],
-                        'description' => 'nullable|string|max:500',
-                        'image'       => 'required|image|mimes:jpg,jpeg,png|max:5120',
+                        'name'      => ['required', 'multi_space',  'string', 'max:100'],
+                        'email'     => ['required', 'string', Rule::unique('customers', 'email')],
+                        'role'      => ['required', 'integer'],
+                        'password'  => ['required', 'string', 'max:12', 'min:6', 'confirmed'],
                     ];
                 }
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name'        =>['required', 'string', 'multi_space', Rule::unique('categories', 'name')->ignore($this->category->id)],
-                        'description' => 'nullable|string|max:500',
-                        'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+                        'name'      => ['required', 'multi_space',  'string', 'max:100'],
+                        'email'     => ['required', 'string', Rule::unique('customers', 'email')->ignore($this->user->id)],
+                        'role'      => ['required', 'integer'],
+                        'password'  => ['nullable', 'string', 'max:12', 'min:6', 'confirmed'],
                     ];
                 }
             default:

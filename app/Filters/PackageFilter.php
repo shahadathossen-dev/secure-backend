@@ -2,7 +2,9 @@
 
 namespace App\Filters;
 
-class CategoryFilter extends Filter
+use EloquentFilter\ModelFilter;
+
+class PackageFilter extends ModelFilter
 {
     /**
     * Related Models that have ModelFilters as well as the method on the ModelFilter
@@ -10,12 +12,12 @@ class CategoryFilter extends Filter
     *
     * @var array
     */
-    public $searchRelations = [];
+    public $relations = ['category'];
 
     /**
      * Searchable columns of the table
      *
      * @var array
      */
-    public $searchColumns = ['id', 'name', 'description'];
+    public $searchColumns = ['id', 'name', 'type'];
 }

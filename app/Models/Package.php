@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Stripe\Subscription;
+
 class Package extends Model
 {
     /**
@@ -10,7 +12,7 @@ class Package extends Model
      * @var array
      */
     protected $casts = [
-        //
+        'features' => 'json'
     ];
 
     /**
@@ -28,15 +30,26 @@ class Package extends Model
      * @var array
      */
     protected $with = [
-        //
+        'category'
     ];
 
     /**
-     * Get the custom permissions name of the resource
+     * Determines one-to-many relation
      *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public static $permissions = [
-        //
-    ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Determines one-to-many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }

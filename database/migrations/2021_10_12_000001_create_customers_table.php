@@ -24,6 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->foreign('country_id')->references('id')->on('countries');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

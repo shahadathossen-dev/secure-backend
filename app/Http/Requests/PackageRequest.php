@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class PackageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,17 +31,21 @@ class CategoryRequest extends FormRequest
                 }
             case 'POST': {
                     return [
-                        'name'        => ['required', 'string', 'multi_space', Rule::unique('categories', 'name')],
-                        'description' => 'nullable|string|max:500',
-                        'image'       => 'required|image|mimes:jpg,jpeg,png|max:5120',
+                        'name'        =>  'required', 'string', 'multi_space',
+                        'category_id'  => 'required|numeric',
+                        'type' => 'required|string',
+                        'price' => 'required|numeric',
+                        'features' => 'nullable|array',
                     ];
                 }
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name'        =>['required', 'string', 'multi_space', Rule::unique('categories', 'name')->ignore($this->category->id)],
-                        'description' => 'nullable|string|max:500',
-                        'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+                        'name'        => 'required', 'string', 'multi_space',
+                        'category_id' => 'required|numeric',
+                        'type' => 'required|string',
+                        'price' => 'required|numeric',
+                        'features' => 'nullable|array',
                     ];
                 }
             default:

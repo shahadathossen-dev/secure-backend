@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->unsignedBigInteger('country_id')->nullable()->default(22);
             $table->foreign('country_id')->references('id')->on('countries');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -8,7 +8,6 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\PermissionGroup;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 
 class RoleController extends Controller
 {
@@ -19,7 +18,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        if (request()->user()->cannot('viewAny', Role::class)) {
+        if ($request->user()->cannot('viewAny', Role::class)) {
             abort(403);
         }
 
@@ -39,9 +38,9 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        if (request()->user()->cannot('create', Role::class)) {
+        if ($request->user()->cannot('create', Role::class)) {
             abort(403);
         }
         // Start from here ...
@@ -58,7 +57,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        if (request()->user()->cannot('create', Role::class)) {
+        if ($request->user()->cannot('create', Role::class)) {
             abort(403);
         }
 
@@ -84,9 +83,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Role $role)
+    public function show(Request $request, Role $role)
     {
-        if (request()->user()->cannot('view', $role)) {
+        if ($request->user()->cannot('view', $role)) {
             abort(403);
         }
 
@@ -104,9 +103,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(Role $role)
+    public function edit(Request $request, Role $role)
     {
-        if (request()->user()->cannot('update', $role)) {
+        if ($request->user()->cannot('update', $role)) {
             abort(403);
         }
         return Inertia::render('Roles/Edit', [
@@ -124,7 +123,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        if (request()->user()->cannot('update', $role)) {
+        if ($request->user()->cannot('update', $role)) {
             abort(403);
         }
         DB::transaction(function () use ($request, $role) {
@@ -151,9 +150,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Role $role)
+    public function destroy(Request $request, Role $role)
     {
-        if (request()->user()->cannot('delete', $role)) {
+        if ($request->user()->cannot('delete', $role)) {
             abort(403);
         }
         if ($role->delete()) {

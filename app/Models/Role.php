@@ -52,8 +52,8 @@ class Role extends Base
      */
     protected $fillable = [
         'name',
-        'group_id',
         'guard_name',
+        'description',
     ];
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Models;
 
-class {{ class }} extends Model
+class Subscription extends Model
 {
     /**
      * The attributes that should be cast.

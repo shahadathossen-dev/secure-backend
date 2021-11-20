@@ -23,21 +23,25 @@ class RolesAndPermissionsSeeder extends Seeder
             // web
             \App\Models\User::class,
             \App\Models\Role::class,
+            \App\Models\Category::class,
+            \App\Models\Package::class,
 
 
         ];
 
+        $order    = 1;
         foreach ($userResources as $key => $model) {
             $name     = $model::readableName();
-            $order    = 1;
+            $permissionOrder    = 1;
 
             // CreateOrUpdate permission group
             $group = PermissionGroup::updateOrCreate(['name' => $name, 'guard_name' => 'web'], ['name' => $name, 'order' => $order, 'guard_name' => 'web']);
             foreach ($model::$permissions as $permission) {
                 $name = $permission . "-" . $model::readableName();
-                Permission::updateOrCreate(['group_id' => $group->id, 'name' => $name, 'order' => ($order), 'guard_name' => 'web'], ['group_id' => $group->id, 'name' => $name, 'order' => ($order), 'guard_name' => 'web']);
-                $order++;
+                Permission::updateOrCreate(['group_id' => $group->id, 'name' => $name, 'order' => ($order), 'guard_name' => 'web'], ['group_id' => $group->id, 'name' => $name, 'order' => $permissionOrder, 'guard_name' => 'web']);
+                $permissionOrder++;
             }
+            $order++;
         }
 
         $superAdmin = Role::updateOrCreate(['name' => Role::SUPER_ADMIN, 'guard_name' => 'web'], ['name' => Role::SUPER_ADMIN, 'guard_name' => 'web']);

@@ -2,135 +2,153 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PackageType;
+use Inertia\Inertia;
 use App\Models\Package;
-use App\Http\Controllers\Controller;
-use Error;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Stripe\PaymentIntent;
-use Stripe\Stripe;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PackageRequest;
+use App\Models\Category;
 
 class PackageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->user()->cannot('viewAny', Package::class)) {
+            abort(403);
+        }
+
+        // Start from here ...
+        return Inertia::render('Packages/Index', [
+            'packages' => Package::filter($request->all())
+                ->sorted()
+                ->paginate()
+                ->withQueryString(),
+            'query'  => $request->all(),
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if ($request->user()->cannot('create', Package::class)) {
+            abort(403);
+        }
+
+        // Start from here ...
+        return Inertia::render('Packages/Create', [
+            'categories' => Category::all(),
+            'packageTypes' => PackageType::toSelectOptions(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\PackageRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(PackageRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function stripeCheckout()
-    {
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        try {
-
-            // retrieve JSON from POST body
-
-            //
-
-
-            // Create a PaymentIntent with amount and currency
-            header('Content-Type: application/json');
-            $paymentIntent = PaymentIntent::create([
-                'amount' => 10 * 100,
-                'currency' => 'usd',
-                'description' => 'Something',
-                'payment_method_types' => ['card',],
-
-            ]);
-            return response()->json(['clientSecret' => $paymentIntent->client_secret], 200);
-        } catch (Error $e) {
-            return response()->json(['message' => $e->getMessage], 500);
+        if ($request->user()->cannot('create', Package::class)) {
+            abort(403);
         }
-    }
 
-    public function paypalCheckout()
-    {
-        try {
+        // Start from here ...
+        $package = DB::transaction(function () use ($request) {
+            return Package::create($request->only('name', 'category_id', 'type', 'price', 'features'));
+        });
 
-            // retrieve JSON from POST body
+        session()->flash('flash.banner', 'Package created successfully.');
+        session()->flash('flash.bannerStyle', 'success');
 
-            //
-
-
-            return response()->json(['amount' => 10 * 100], 200);
-        } catch (Error $e) {
-            return response()->json(['message' => $e->getMessage], 500);
+        if ($request->saveAndContinue) {
+            return back();
         }
+        return redirect()->route('packages.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Package $package)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(Package $package)
+    public function edit(Request $request, Package $package)
     {
-        //
+        if ($request->user()->cannot('update', $package)) {
+            abort(403);
+        }
+
+        // Start from here ...
+        return Inertia::render('Packages/Edit', [
+            'product' => $package,
+            'categories' => Category::all(),
+            'packageTypes' => PackageType::toSelectOptions(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PackageRequest  $request
      * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Package $package)
+    public function update(PackageRequest $request, Package $package)
     {
-        //
+        if ($request->user()->cannot('update', $package)) {
+            abort(403);
+        }
+
+        // Start from here ...
+        $package = DB::transaction(function () use ($request, $package)  {
+            return $package->update($request->only('name', 'category_id', 'type', 'price', 'features'));
+        });
+
+        session()->flash('flash.banner', 'Updated successfully.');
+        session()->flash('flash.bannerStyle', 'success');
+
+        if ($request->updateAndContinue) {
+            return back();
+        }
+        return redirect()->route('packages.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Package $package)
+    public function destroy(Request $request, Package $package)
     {
-        //
+        if ($request->user()->cannot('delete', $package)) {
+            abort(403);
+        }
+
+        // Start from here ...
+        if ($package->subscriptions()->exists()) {
+            $subscriptions = $package->subscriptions()->count();
+            session()->flash('flash.banner', "There are {$subscriptions} subscriptions related to it. You can not delete it now.");
+            session()->flash('flash.bannerStyle', 'danger');
+        } else {
+            if ($package->delete()) {
+                session()->flash('flash.banner', 'Deleted successfully.');
+                session()->flash('flash.bannerStyle', 'success');
+            }
+        }
+        return back();
     }
 }
