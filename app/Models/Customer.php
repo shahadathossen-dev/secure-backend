@@ -94,6 +94,17 @@ class Customer extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Country::class);
     }
 
+
+        /**
+     * Determines one-to-many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchase()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     /**
      * Get user's timezone
      *

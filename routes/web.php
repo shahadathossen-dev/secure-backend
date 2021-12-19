@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -39,5 +40,6 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('packages', PackageController::class);
+Route::resource('purchases', PurchaseController::class);
 Route::get('location', [LocationController::class, 'getLocation']);
 
