@@ -62,7 +62,7 @@
 
       <!-- Price -->
       <form-group class="border-b">
-        <jet-label class="md:w-1/4 mt-2" for="price" value="Type" required />
+        <jet-label class="md:w-1/4 mt-2" for="price" value="Price" required />
         <div class="w-full mt-1">
           <jet-input
             id="price"

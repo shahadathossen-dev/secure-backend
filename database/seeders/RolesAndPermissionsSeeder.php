@@ -35,16 +35,17 @@ class RolesAndPermissionsSeeder extends Seeder
             $permissionOrder    = 1;
 
             // CreateOrUpdate permission group
-            $group = PermissionGroup::updateOrCreate(['name' => $name, 'guard_name' => 'web'], ['name' => $name, 'order' => $order, 'guard_name' => 'web']);
+            $group = PermissionGroup::firstOrCreate(['name' => $name, 'guard_name' => 'web'], ['name' => $name, 'order' => $order, 'guard_name' => 'web']);
             foreach ($model::$permissions as $permission) {
-                $name = $permission . "-" . $model::readableName();
-                Permission::updateOrCreate(['group_id' => $group->id, 'name' => $name, 'order' => ($order), 'guard_name' => 'web'], ['group_id' => $group->id, 'name' => $name, 'order' => $permissionOrder, 'guard_name' => 'web']);
+                $name = $permission . "-" . $name;
+
+                Permission::firstOrCreate(['group_id' => $group->id, 'name' => $name, 'guard_name' => 'web'], ['group_id' => $group->id, 'name' => $name, 'order' => $permissionOrder, 'guard_name' => 'web']);
                 $permissionOrder++;
             }
             $order++;
         }
 
-        $superAdmin = Role::updateOrCreate(['name' => Role::SUPER_ADMIN, 'guard_name' => 'web'], ['name' => Role::SUPER_ADMIN, 'guard_name' => 'web']);
+        $superAdmin = Role::firstOrCreate(['name' => Role::SUPER_ADMIN, 'guard_name' => 'web'], ['name' => Role::SUPER_ADMIN, 'guard_name' => 'web']);
         $superAdmin->givePermissionTo(Permission::where('guard_name', 'web')->get());
     }
 }

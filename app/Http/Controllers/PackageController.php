@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PackageType;
 use Inertia\Inertia;
 use App\Models\Package;
+use App\Models\Category;
+use App\Enums\PackageType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PackageRequest;
-use App\Models\Category;
 
 class PackageController extends Controller
 {
