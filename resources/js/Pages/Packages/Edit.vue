@@ -1,7 +1,7 @@
 <template>
   <form-view
     @submitted="update('packages.update', product.id)"
-    title="Update Category"
+    title="Update Packages"
     :breadcrumb="breadcrumb"
   >
     <template #form>
@@ -21,7 +21,7 @@
         </div>
       </form-group>
 
-      <!-- Category -->
+      <!-- Packages -->
       <form-group class="border-b">
         <jet-label
           class="md:w-1/4 mt-2"

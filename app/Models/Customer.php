@@ -100,9 +100,9 @@ class Customer extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchase()
+    public function subscriptions()
     {
-        return $this->hasMany(Purchase::class);
+        return $this->hasMany(Subscription::class);
     }
 
     /**

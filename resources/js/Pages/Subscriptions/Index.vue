@@ -1,8 +1,8 @@
 <template>
-  <index-view title="Purchase" :breadcrumb="breadcrumb">
+  <index-view title="Subscriptions" :breadcrumb="breadcrumb">
     <datatable
-      :data="purchases"
-      searchRoute="purchases.index"
+      :data="subscriptions"
+      searchRoute="subscriptions.index"
       :filters="filters"
     >
       <!-- Left Header -->
@@ -41,10 +41,10 @@
               <td>{{ row.package.name }}</td>
               <td>{{ row.package.type }}</td>
               <td>{{ row.package.price }}</td>
-              <td>{{ row.paymentType }}</td>
+              <td>{{ row.paymentMethod }}</td>
               <td class="flex">
-                <Link class="btn btn-success mr-2" title="Details" :href="route('purchases.show', row.id)"
-                v-if="hasPermissions(['viewPurchases'])">
+                <Link class="btn btn-success mr-2" title="Details" :href="route('subscriptions.show', row.id)"
+                v-if="hasPermissions(['viewSubscriptions'])">
                   <detail-icon></detail-icon>
                 </Link>
               </td>
@@ -52,7 +52,7 @@
           </tbody>
         </table>
       </template>
-      <template #nodata> No Purchases Found</template>
+      <template #nodata> No Subscriptions Found</template>
     </datatable>
   </index-view>
 </template>
@@ -67,9 +67,9 @@ import SearchInput from "@/Jetstream/SearchInput.vue";
 import FilterDropdown from "@/Jetstream/FilterDropdown.vue";
 import DetailIcon from "@/Icons/DetailIcon.vue";
 export default {
-  name: "purchases",
+  name: "subscriptions",
   props: {
-    purchases: Object,
+    subscriptions: Object,
     query: Object,
   },
 
@@ -91,7 +91,7 @@ export default {
       },
       breadcrumb: [
         { label: "Home", route: this.route("dashboard") },
-        { label: "Purchases", route: null },
+        { label: "Subscriptions", route: null },
       ],
     };
   },

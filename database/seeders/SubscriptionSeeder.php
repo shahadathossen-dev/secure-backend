@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class PurchaseSeeder extends Seeder
+class SubscriptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class PurchaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Purchase::factory(50)->create();
+        \App\Models\Subscription::factory(50)->create();
     }
 }

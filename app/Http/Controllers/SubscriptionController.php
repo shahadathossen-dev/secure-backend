@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Subscription;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SubscriptionController extends Controller
 {
@@ -13,43 +14,24 @@ class SubscriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (request()->user()->cannot('viewAny', Subscription::class)) {
             abort(403);
         }
 
         // Start from here ...
+        return Inertia::render('Subscriptions/Index', [
+            'subscriptions' => Subscription::with('customer', 'package')
+            ->filter($request->all())
+                ->sorted()
+                ->paginate()
+                ->withQueryString(),
+            'query'  => $request->all(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if (request()->user()->cannot('create', Subscription::class)) {
-            abort(403);
-        }
 
-        // Start from here ...
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        if (request()->user()->cannot('create', Subscription::class)) {
-            abort(403);
-        }
-
-        // Start from here ...
-    }
 
     /**
      * Display the specified resource.
@@ -64,22 +46,12 @@ class SubscriptionController extends Controller
         }
 
         // Start from here ...
+        return Inertia::render('Subscriptions/Show', [
+            'subscription'=> $subscription->load('customer', 'package')
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Subscription $subscription)
-    {
-         if (request()->user()->cannot('update', $subscription)) {
-            abort(403);
-        }
 
-        // Start from here ...
-    }
 
     /**
      * Update the specified resource in storage.
