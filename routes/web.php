@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MassageController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -38,6 +39,10 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('packages', PackageController::class);
-Route::resource('subscriptions', SubscriptionController::class);
+Route::resource('subscriptions', SubscriptionController::class)->only('index', 'show');
 Route::get('location', [LocationController::class, 'getLocation']);
+
+// Massage Route
+Route::resource('massages', MassageController::class)->only('index', 'show', 'destroy');
+Route::post('/massages/{massage}/reply', [MassageController::class, 'reply'])->name('massages.reply');
 
