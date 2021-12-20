@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Stripe\Subscription;
-
-class Package extends Model
+class Purchase extends Model
 {
     /**
      * The attributes that should be cast.
@@ -12,7 +10,7 @@ class Package extends Model
      * @var array
      */
     protected $casts = [
-        'features' => 'json'
+        //
     ];
 
     /**
@@ -30,36 +28,27 @@ class Package extends Model
      * @var array
      */
     protected $with = [
-        'category'
+        //
     ];
 
-    /**
+        /**
      * Determines one-to-many relation
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function customer()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Customer::class);
     }
 
             /**
      * Determines one-to-many relation
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchase()
+    public function package()
     {
-        return $this->hasMany(Purchase::class);
+        return $this->belongsTo(Package::class);
     }
 
-    /**
-     * Determines one-to-many relation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function subscriptions()
-    {
-        return $this->hasMany(Subscription::class);
-    }
 }

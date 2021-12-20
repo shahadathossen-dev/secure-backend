@@ -68,7 +68,9 @@
       <!-- RESOURCES -->
       <p
         class="px-4 py-3 text-xs font-bold text-gray-400 uppercase"
-        v-if="!collapsed && hasPermissions(['viewAnyCategories', 'viewAnyPackages'])"
+        v-if="
+          !collapsed && hasPermissions(['viewAnyCategories', 'viewAnyPackages'])
+        "
       >
         Resources
       </p>
@@ -105,6 +107,22 @@
           >
             Packages
           </submenu-item>
+        </template>
+      </sidebar-item>
+
+            <!-- Purchase -->
+      <sidebar-item :active="isActive(['purchases.*'])" :collapsed="collapsed"
+        v-if="hasPermissions(['viewAnyPurchases'])">
+        <template #icon> <i class="ti-shopping-cart" title="Purchase"></i> </template>
+        Purchase
+        <!-- Nested Menu Items -->
+        <template #submenu>
+          <!-- Purchases -->
+          <submenu-item title="Purchases" :href="route('purchases.index')" :active="isActive(['purchases.*'])" :collapsed="collapsed"
+            v-if="hasPermissions(['viewAnyPurchases'])">
+            Purchases
+          </submenu-item>
+
         </template>
       </sidebar-item>
     </div>
