@@ -25,14 +25,11 @@
         <!-- Package Type -->
 		<detail-section class="border-b" label="Package Type" :value="subscription.package.type"></detail-section>
 
-           <!-- Package Featured -->
-		<detail-section class="border-b" label="Package Featured" :value="subscription.package.features"></detail-section>
-
         <!-- Package Price -->
 		<detail-section class="border-b" label="Package Price" :value="subscription.package.price"></detail-section>
 
-        <!-- Payment Type -->
-		<detail-section class="border-b" label="Payment Type" :value="subscription.paymentType"></detail-section>
+        <!-- Payment Method -->
+		<detail-section class="border-b" label="Payment Method" :value="subscription.paymentMethod"></detail-section>
 
 	</detail-view>
 </template>

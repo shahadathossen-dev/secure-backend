@@ -1,5 +1,5 @@
 <template>
-  <index-view title="Categories" :breadcrumb="breadcrumb">
+  <index-view title="Packages" :breadcrumb="breadcrumb">
     <datatable :data="packages" searchRoute="packages.index" :filters="filters">
       <!-- Left Header -->
       <template #left-header>
@@ -117,10 +117,6 @@ export default {
       filters: {
         search: this.query.search,
       },
-      breadcrumb: [
-        { label: "Home", route: this.route("dashboard") },
-        { label: "Categories", route: null },
-      ],
     };
   },
 };

@@ -21,8 +21,8 @@ class SubscriptionController extends Controller
         }
 
         // Start from here ...
-        return Inertia::render('Subscription/Index', [
-            'purchases' => Subscription::with('customer', 'package')
+        return Inertia::render('Subscriptions/Index', [
+            'subscriptions' => Subscription::with('customer', 'package')
             ->filter($request->all())
                 ->sorted()
                 ->paginate()
@@ -46,7 +46,7 @@ class SubscriptionController extends Controller
         }
 
         // Start from here ...
-        return Inertia::render('Subscription/Show', [
+        return Inertia::render('Subscriptions/Show', [
             'subscription'=> $subscription->load('customer', 'package')
         ]);
     }
