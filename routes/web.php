@@ -2,14 +2,12 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +38,6 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('packages', PackageController::class);
-Route::resource('purchases', PurchaseController::class);
+Route::resource('subscriptions', SubscriptionController::class);
 Route::get('location', [LocationController::class, 'getLocation']);
 

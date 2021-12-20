@@ -30,4 +30,25 @@ class Subscription extends Model
     protected $with = [
         //
     ];
+
+        /**
+     * Determines one-to-many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+            /**
+     * Determines one-to-many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
+
 }

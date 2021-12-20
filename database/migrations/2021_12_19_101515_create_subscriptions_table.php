@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\PackageType;
+use App\Enums\PaymentMethod;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateSubscriptionsTable extends Migration
 {
@@ -15,6 +17,11 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('package_id');
+            $table->string('payment_method')->default(PaymentMethod::PAYPAL());
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('package_id')->references('id')->on('packages');
             $table->timestamps();
         });
     }

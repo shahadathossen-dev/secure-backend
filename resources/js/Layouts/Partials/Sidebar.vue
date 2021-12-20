@@ -110,17 +110,17 @@
         </template>
       </sidebar-item>
 
-            <!-- Purchase -->
-      <sidebar-item :active="isActive(['purchases.*'])" :collapsed="collapsed"
-        v-if="hasPermissions(['viewAnyPurchases'])">
-        <template #icon> <i class="ti-shopping-cart" title="Purchase"></i> </template>
-        Purchase
+            <!-- Subscriptions -->
+      <sidebar-item :active="isActive(['subscriptions.*'])" :collapsed="collapsed"
+        v-if="hasPermissions(['viewAnySubscriptions'])">
+        <template #icon> <i class="ti-shopping-cart" title="Subscriptions"></i> </template>
+        Subscriptions
         <!-- Nested Menu Items -->
         <template #submenu>
-          <!-- Purchases -->
-          <submenu-item title="Purchases" :href="route('purchases.index')" :active="isActive(['purchases.*'])" :collapsed="collapsed"
-            v-if="hasPermissions(['viewAnyPurchases'])">
-            Purchases
+          <!-- Subscriptions -->
+          <submenu-item title="Subscriptions" :href="route('subscriptions.index')" :active="isActive(['subscriptions.*'])" :collapsed="collapsed"
+            v-if="hasPermissions(['viewAnySubscriptions'])">
+            Subscriptions
           </submenu-item>
 
         </template>
