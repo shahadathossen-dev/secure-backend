@@ -5,8 +5,7 @@
 		<detail-section class="border-b" label="ID" :value="subscription.id"></detail-section>
 
         <!-- Subscription Date -->
-		<detail-section class="border-b" label="Subscription Date" :value="subscription.createdAt"></detail-section>
-
+		<detail-section class="border-b" label="Subscription Date" :value="subscription.dateFormatted"></detail-section>
 
 		<!-- Name -->
 		<detail-section class="border-b" label="Name" :value="subscription.customer.name"></detail-section>
@@ -26,7 +25,9 @@
 		<detail-section class="border-b" label="Package Type" :value="subscription.package.type"></detail-section>
 
         <!-- Package Price -->
-		<detail-section class="border-b" label="Package Price" :value="subscription.package.price"></detail-section>
+		<detail-section class="border-b" label="Package Price" >
+            <p>${{subscription.package.price}}</p>
+        </detail-section>
 
         <!-- Payment Method -->
 		<detail-section class="border-b" label="Payment Method" :value="subscription.paymentMethod"></detail-section>
@@ -59,6 +60,7 @@ export default {
 	data() {
 		return {
 			breadcrumb: [
+
 				{ label: "Home", route: this.route("dashboard") },
 				{ label: "subscription", route: this.route("subscriptions.index") },
 				// { label: this.customer.name, route: null },

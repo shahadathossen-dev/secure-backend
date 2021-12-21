@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Massage;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Message;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class MassageController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,14 @@ class MassageController extends Controller
      */
     public function index(Request $request)
     {
-        if (request()->user()->cannot('viewAny', Massage::class)) {
+        if (request()->user()->cannot('viewAny', Message::class)) {
             abort(403);
         }
 
         // Start from here ...
 
-        return Inertia::render('Massages/Index', [
-            'massages' => Massage::filter($request->all())
+        return Inertia::render('Messages/Index', [
+            'messages' => Message::filter($request->all())
                 ->sorted()
                 ->paginate()
                 ->withQueryString(),
@@ -34,18 +34,18 @@ class MassageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Massage $massage)
+    public function show(Message $message)
     {
-        if (request()->user()->cannot('view', $massage)) {
+        if (request()->user()->cannot('view', $message)) {
             abort(403);
         }
 
         // Start from here ...
-        return Inertia::render('Massages/Show', [
-            'massage' => $massage,
+        return Inertia::render('Messages/Show', [
+            'message' => $message,
 
         ]);
     }
@@ -53,16 +53,16 @@ class MassageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Massage $massage)
+    public function destroy(Message $message)
     {
-         if (request()->user()->cannot('delete', $massage)) {
+         if (request()->user()->cannot('delete', $message)) {
             abort(403);
         }
 
-        if ($massage->delete()) {
+        if ($message->delete()) {
             session()->flash('flash.banner', 'Deleted successfully.');
             session()->flash('flash.bannerStyle', 'success');
 
@@ -77,10 +77,10 @@ class MassageController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function reply(Request $request, Massage $massage)
+    public function reply(Request $request, Message $message)
     {
 
-        if (request()->user()->cannot('update', $massage)) {
+        if (request()->user()->cannot('update', $message)) {
             abort(403);
         }
 
@@ -89,7 +89,7 @@ class MassageController extends Controller
             'reply' => 'required|string|max:2000',
         ]);
 
-        $massage->update([
+        $message->update([
             'reply'    => $request->reply,
             'answered' => true
         ]);

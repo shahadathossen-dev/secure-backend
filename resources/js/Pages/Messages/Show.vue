@@ -1,44 +1,44 @@
 <template>
-	<detail-view title="Massage Details">
+	<detail-view title="Message Details">
 
 		<!-- ID -->
-		<detail-section class="border-b" label="ID" :value="massage.id"></detail-section>
+		<detail-section class="border-b" label="ID" :value="message.id"></detail-section>
 
-        <!-- Massage Date -->
-		<detail-section class="border-b" label="Massage Date" :value="massage.createdAt"></detail-section>
+        <!-- Message Date -->
+		<detail-section class="border-b" label="Message Date" :value="message.dateFormatted"></detail-section>
 
 
 		<!-- Name -->
-		<detail-section class="border-b" label="Name" :value="massage.name"></detail-section>
+		<detail-section class="border-b" label="Name" :value="message.name"></detail-section>
 
 		<!-- Email -->
 		<detail-section class="border-b" label="Email">
-			<a class="text-blue-500" :href="`mailto:${massage.email}`">{{massage.email}}</a>
+			<a class="text-blue-500" :href="`mailto:${message.email}`">{{message.email}}</a>
 		</detail-section>
 
 
         <!-- Subject -->
-        <detail-section class="border-b" label="Subject" :value="massage.subject"></detail-section>
+        <detail-section class="border-b" label="Subject" :value="message.subject"></detail-section>
 
         <!-- Message -->
-        <detail-section class="border-b" label="Message" :value="massage.massage"></detail-section>
+        <detail-section class="border-b" label="Message" :value="message.message"></detail-section>
 
         <!-- Reply -->
-        <detail-section class="border-b" label="Reply" :value="massage.reply" v-if="massage.reply"></detail-section>
+        <detail-section class="border-b" label="Reply" :value="message.reply" v-if="message.reply"></detail-section>
 
 
          <!-- Answered -->
         <detail-section class="border-b" label="Answered">
             <div class="w-3/4  break-words">
-                <p :class="[massage.answered == true ? 'text-green-500': 'text-red-500',]">
-                    <span v-if="massage.answered">Yes</span>
+                <p :class="[message.answered == true ? 'text-green-500': 'text-red-500',]">
+                    <span v-if="message.answered">Yes</span>
                     <span v-else>No</span>
                 </p>
             </div>
         </detail-section>
 
         <!-- Reply -->
-        <detail-section class="border-b" label="Reply" v-if="!massage.answered">
+        <detail-section class="border-b" label="Reply" v-if="!message.answered">
             <form @submit.prevent="reply" >
                 <!-- Reply -->
                 <div class="flex -mx-6 px-6">
@@ -70,9 +70,9 @@ import JetButton from "@/Jetstream/Button.vue";
 import JetInputError from "@/Jetstream/InputError.vue";
 
 export default {
-	name: "massage-details",
+	name: "message-details",
 	props: {
-		massage: Object,
+		message: Object,
 	},
 
 	components: {
@@ -98,7 +98,7 @@ export default {
 
         methods: {
             reply() {
-                this.form.post(this.route("massages.reply", this.massage.id));
+                this.form.post(this.route("messages.reply", this.message.id));
             },
         },
 

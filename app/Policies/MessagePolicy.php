@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Models\Massage;
+use App\Models\Message;
 use App\Models\User;
 
-class MassagePolicy
+class MessagePolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class MassagePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('view-any-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('view-any-messages');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function view(User $user, Massage $massage)
+    public function view(User $user, Message $message)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('view-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('view-messages');
     }
 
     /**
@@ -41,54 +41,54 @@ class MassagePolicy
      */
     public function create(User $user)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('create-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('create-messages');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function update(User $user, Massage $massage)
+    public function update(User $user, Message $message)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('update-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('update-messages');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function delete(User $user, Massage $massage)
+    public function delete(User $user, Message $message)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('delete-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('delete-messages');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function restore(User $user, Massage $massage)
+    public function restore(User $user, Message $message)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('restore-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('restore-messages');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Massage  $massage
+     * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function forceDelete(User $user, Massage $massage)
+    public function forceDelete(User $user, Message $message)
     {
-        return $user->isSuperAdmin() || $user->hasPermissionTo('force-delete-permissions');
+        return $user->isSuperAdmin() || $user->hasPermissionTo('force-delete-messages');
     }
 }
