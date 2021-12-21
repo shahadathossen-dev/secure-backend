@@ -26,7 +26,7 @@ class RolesAndPermissionsSeeder extends Seeder
             \App\Models\Category::class,
             \App\Models\Package::class,
             \App\Models\Subscription::class,
-            \App\Models\Massage::class,
+            \App\Models\Message::class,
 
 
         ];

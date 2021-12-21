@@ -24,6 +24,7 @@
           <thead>
             <tr>
               <th>Id</th>
+              <th>Date</th>
               <th>Customer Name</th>
               <th>Email</th>
               <th>Package</th>
@@ -36,6 +37,7 @@
           <tbody>
             <tr v-for="(row, index) in rows" :key="index">
               <td>{{ row.id }}</td>
+              <td>{{ row.dateFormatted }}</td>
               <td>{{ row.customer.name }}</td>
               <td>{{ row.customer.email }}</td>
               <td>{{ row.package.name }}</td>

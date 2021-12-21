@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CategorySeeder::class,
             UserSeeder::class,
-            MassageSeeder::class,
+            MessageSeeder::class,
         ]);
     }
 }

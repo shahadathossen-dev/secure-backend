@@ -5,8 +5,7 @@
 		<detail-section class="border-b" label="ID" :value="subscription.id"></detail-section>
 
         <!-- Subscription Date -->
-		<detail-section class="border-b" label="Subscription Date" :value="subscription.createdAt"></detail-section>
-
+		<detail-section class="border-b" label="Subscription Date" :value="subscription.dateFormatted"></detail-section>
 
 		<!-- Name -->
 		<detail-section class="border-b" label="Name" :value="subscription.customer.name"></detail-section>

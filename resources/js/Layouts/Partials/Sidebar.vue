@@ -33,7 +33,7 @@
 
       <!-- People -->
       <sidebar-item
-        :active="isActive(['roles.*', 'users.*', 'massages.*'])"
+        :active="isActive(['roles.*', 'users.*', 'messages.*'])"
         :collapsed="collapsed"
         v-if="hasPermissions(['viewAnyRoles', 'viewAnyUsers'])"
       >
@@ -65,12 +65,12 @@
 
             <!-- Massages -->
           <submenu-item
-            title="Massages"
-            :href="route('massages.index')"
-            :active="isActive(['massages.*'])"
+            title="Messages"
+            :href="route('messages.index')"
+            :active="isActive(['messages.*'])"
             :collapsed="collapsed"
           >
-            Massages
+            Messages
           </submenu-item>
         </template>
       </sidebar-item>
