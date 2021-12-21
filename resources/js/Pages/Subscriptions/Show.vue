@@ -60,6 +60,7 @@ export default {
 	data() {
 		return {
 			breadcrumb: [
+
 				{ label: "Home", route: this.route("dashboard") },
 				{ label: "subscription", route: this.route("subscriptions.index") },
 				// { label: this.customer.name, route: null },
