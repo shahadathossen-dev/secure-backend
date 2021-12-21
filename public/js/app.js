@@ -32072,7 +32072,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* TEXT */
             ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row["package"].type), 1
             /* TEXT */
-            ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row["package"].price), 1
+            ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "$" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row["package"].price), 1
             /* TEXT */
             ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.paymentMethod), 1
             /* TEXT */
@@ -32192,11 +32192,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Package Price "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_detail_section, {
         "class": "border-b",
-        label: "Package Price",
-        value: $props.subscription["package"].price
-      }, null, 8
-      /* PROPS */
-      , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Payment Method "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_detail_section, {
+        label: "Package Price"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "$" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.subscription["package"].price), 1
+          /* TEXT */
+          )];
+        }),
+        _: 1
+        /* STABLE */
+
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Payment Method "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_detail_section, {
         "class": "border-b",
         label: "Payment Method",
         value: $props.subscription.paymentMethod

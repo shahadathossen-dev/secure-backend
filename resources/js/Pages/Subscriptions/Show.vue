@@ -25,7 +25,9 @@
 		<detail-section class="border-b" label="Package Type" :value="subscription.package.type"></detail-section>
 
         <!-- Package Price -->
-		<detail-section class="border-b" label="Package Price" :value="subscription.package.price"></detail-section>
+		<detail-section class="border-b" label="Package Price" >
+            <p>${{subscription.package.price}}</p>
+        </detail-section>
 
         <!-- Payment Method -->
 		<detail-section class="border-b" label="Payment Method" :value="subscription.paymentMethod"></detail-section>

@@ -42,7 +42,7 @@
               <td>{{ row.customer.email }}</td>
               <td>{{ row.package.name }}</td>
               <td>{{ row.package.type }}</td>
-              <td>{{ row.package.price }}</td>
+              <td>${{ row.package.price }}</td>
               <td>{{ row.paymentMethod }}</td>
               <td class="flex">
                 <Link class="btn btn-success mr-2" title="Details" :href="route('subscriptions.show', row.id)"
