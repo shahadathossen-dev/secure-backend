@@ -62,4 +62,5 @@ class Package extends Model
     {
         return $this->hasMany(Subscription::class);
     }
+
 }

@@ -1,7 +1,7 @@
 <template>
 
-	<index-view title="Users" :breadcrumb="breadcrumb">
-		<datatable :data="users" searchRoute="users.index" :filters="filters">
+	<index-view title="Customers">
+		<datatable :data="customers" searchRoute="customers.index" :filters="filters">
 			<!-- Left Header -->
 			<template #left-header>
 				<search-input v-model="filters.search"></search-input>
@@ -12,12 +12,6 @@
 				<filter-dropdown>
 					<slot name="filter"></slot>
 				</filter-dropdown>
-
-				<!-- Admin -->
-				<button-link class="px-6 py-3 ml-4" :href="route('users.create')" v-if="$page.props.can.createUsers">
-					<span class="mr-2">+ Add</span>
-					<span class="hidden md:inline">users</span>
-				</button-link>
 			</template>
 
 			<!--Table Rows -->
@@ -26,9 +20,10 @@
 					<thead>
 						<tr>
 							<th>Id</th>
+							<th>Date</th>
 							<th>Name</th>
 							<th>Email</th>
-							<th>Role</th>
+							<th>Country</th>
 							<th>Action</th>
 						</tr>
 
@@ -36,18 +31,15 @@
 					<tbody>
 						<tr v-for="(row, index) in rows" :key="index">
 							<td>{{ row.id }}</td>
+							<td>{{ row.createdAtFormatted}}</td>
 							<td>{{ row.name }}</td>
-							<td>
-								<a class="text-blue-500" :href="`mailto:${row.email}`">{{row.email}}</a>
-							</td>
-							<td>
-								<span class="badge bg-yellow-500">{{row.role.name}}</span>
-							</td>
+							<td>{{ row.email }}</td>
+							<td>{{ row.country.code }}</td>
 
 							<td class="flex">
 
 								<div>
-									<Link class="btn btn-success mr-2" title="Details" :href="route('users.show', row.id)" v-if="$page.props.can.viewUsers">
+									<Link class="btn btn-success mr-2" title="Details" :href="route('customers.show', row.id)">
 									<detail-icon></detail-icon>
 									</Link>
 								</div>
@@ -57,7 +49,7 @@
 					</tbody>
 				</table>
 			</template>
-			<template #nodata>No users Found</template>
+			<template #nodata>No customers Found</template>
 
 		</datatable>
 	</index-view>
@@ -74,10 +66,10 @@ import SearchInput from "@/Jetstream/SearchInput.vue";
 import FilterDropdown from "@/Jetstream/FilterDropdown.vue";
 import DetailIcon from "@/Icons/DetailIcon.vue";
 export default {
-	name: "Users",
+	name: "customers",
 
 	props: {
-		users: Object,
+		customers: Object,
 		query: Object,
 	},
 
@@ -97,10 +89,6 @@ export default {
 			filters: {
 				search: this.query.search,
 			},
-			breadcrumb: [
-				{ label: "Home", route: this.route("dashboard") },
-				{ label: "Users", route: null },
-			],
 		};
 	},
 };
