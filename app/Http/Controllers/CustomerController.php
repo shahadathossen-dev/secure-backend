@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 
 class CustomerController extends Controller
 {
@@ -23,7 +24,6 @@ class CustomerController extends Controller
         // Start from here ...
         return Inertia::render('Customers/Index', [
             'customers' => Customer::filter($request->all())
-                ->withoutSuperAdmin()
                 ->sorted()
                 ->paginate()
                 ->withQueryString(),
@@ -39,13 +39,19 @@ class CustomerController extends Controller
      */
     public function show(Request $request, Customer $customer)
     {
-        if ($request->user()->cannot('view', $customer)) {
-            abort(403);
-        }
+        // if ($request->user()->cannot('view', $customer)) {
+        //     abort(403);
+        // }
+
 
         // Start from here ...
         return Inertia::render('Customers/Show', [
             'customer' => $customer,
+            'subscriptions'     => Subscription::with('package')->where('customer_id', $customer->id)
+            ->filter($request->all())
+            ->sorted()
+            ->paginate()
+            ->withQueryString(),
 
         ]);
     }

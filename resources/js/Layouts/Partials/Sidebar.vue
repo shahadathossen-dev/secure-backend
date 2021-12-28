@@ -121,25 +121,22 @@
       </sidebar-item>
 
       <!-- Subscriptions -->
-      <sidebar-item
-        :active="isActive(['subscriptions.*'])"
-        :collapsed="collapsed"
-        v-if="hasPermissions(['viewAnySubscriptions'])"
+      <sidebar-item :active="isActive(['subscriptions.*', 'customers.*'])" :collapsed="collapsed" v-if="hasPermissions(['viewAnySubscriptions'])"
       >
         <template #icon>
           <i class="ti-shopping-cart" title="Subscriptions"></i>
         </template>
-        Subscriptions
+        Sales
         <!-- Nested Menu Items -->
         <template #submenu>
+
+           <!-- Customers -->
+          <submenu-item title="Customer" :href="route('customers.index')" :active="isActive(['customers.*'])" :collapsed="collapsed"  v-if="hasPermissions(['viewAnySubscriptions'])">
+            Customers
+          </submenu-item>
+
           <!-- Subscriptions -->
-          <submenu-item
-            title="Subscriptions"
-            :href="route('subscriptions.index')"
-            :active="isActive(['subscriptions.*'])"
-            :collapsed="collapsed"
-            v-if="hasPermissions(['viewAnySubscriptions'])"
-          >
+          <submenu-item title="Subscriptions" :href="route('subscriptions.index')" :active="isActive(['subscriptions.*'])" :collapsed="collapsed"  v-if="hasPermissions(['viewAnySubscriptions'])">
             Subscriptions
           </submenu-item>
         </template>
