@@ -33,7 +33,7 @@
 
       <!-- People -->
       <sidebar-item
-        :active="isActive(['roles.*', 'users.*', 'massages.*'])"
+        :active="isActive(['roles.*', 'users.*', 'messages.*'])"
         :collapsed="collapsed"
         v-if="hasPermissions(['viewAnyRoles', 'viewAnyUsers'])"
       >
@@ -65,12 +65,12 @@
 
             <!-- Massages -->
           <submenu-item
-            title="Massages"
-            :href="route('massages.index')"
-            :active="isActive(['massages.*'])"
+            title="Messages"
+            :href="route('messages.index')"
+            :active="isActive(['messages.*'])"
             :collapsed="collapsed"
           >
-            Massages
+            Messages
           </submenu-item>
         </template>
       </sidebar-item>
@@ -121,25 +121,22 @@
       </sidebar-item>
 
       <!-- Subscriptions -->
-      <sidebar-item
-        :active="isActive(['subscriptions.*'])"
-        :collapsed="collapsed"
-        v-if="hasPermissions(['viewAnySubscriptions'])"
+      <sidebar-item :active="isActive(['subscriptions.*', 'customers.*'])" :collapsed="collapsed" v-if="hasPermissions(['viewAnySubscriptions'])"
       >
         <template #icon>
           <i class="ti-shopping-cart" title="Subscriptions"></i>
         </template>
-        Subscriptions
+        Sales
         <!-- Nested Menu Items -->
         <template #submenu>
+
+           <!-- Customers -->
+          <submenu-item title="Customer" :href="route('customers.index')" :active="isActive(['customers.*'])" :collapsed="collapsed"  v-if="hasPermissions(['viewAnySubscriptions'])">
+            Customers
+          </submenu-item>
+
           <!-- Subscriptions -->
-          <submenu-item
-            title="Subscriptions"
-            :href="route('subscriptions.index')"
-            :active="isActive(['subscriptions.*'])"
-            :collapsed="collapsed"
-            v-if="hasPermissions(['viewAnySubscriptions'])"
-          >
+          <submenu-item title="Subscriptions" :href="route('subscriptions.index')" :active="isActive(['subscriptions.*'])" :collapsed="collapsed"  v-if="hasPermissions(['viewAnySubscriptions'])">
             Subscriptions
           </submenu-item>
         </template>

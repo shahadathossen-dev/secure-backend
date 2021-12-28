@@ -9,27 +9,29 @@ class Subscription extends Model
      *
      * @var array
      */
-    protected $casts = [
-        //
-    ];
+    protected $casts = [];
 
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
-    protected $appends = [
-        //
-    ];
+    protected $appends = ['dateFormatted'];
 
     /**
      * The relations to eager load on every query.
      *
      * @var array
      */
-    protected $with = [
-        //
-    ];
+    protected $with = [];
+
+       /**
+     * Get date as formatted
+     */
+    public function getDateFormattedAttribute()
+    {
+        return $this->createdAt->format('d M, Y h:i A');
+    }
 
         /**
      * Determines one-to-many relation
@@ -50,5 +52,7 @@ class Subscription extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+
 
 }

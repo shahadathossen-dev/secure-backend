@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MassageController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -39,10 +41,11 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('packages', PackageController::class);
+Route::resource('customers', CustomerController::class);
 Route::resource('subscriptions', SubscriptionController::class)->only('index', 'show');
 Route::get('location', [LocationController::class, 'getLocation']);
 
-// Massage Route
-Route::resource('massages', MassageController::class)->only('index', 'show', 'destroy');
-Route::post('/massages/{massage}/reply', [MassageController::class, 'reply'])->name('massages.reply');
+// Message Route
+Route::resource('messages', MessageController::class)->only('index', 'show', 'destroy');
+Route::post('/messages/{message}/reply', [MessageController::class, 'reply'])->name('messages.reply');
 

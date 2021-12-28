@@ -2,26 +2,24 @@
 
 namespace App\Models;
 
+use App\Models\Country;
+use App\Traits\Sortable;
 use App\Traits\CamelCasing;
+use Illuminate\Support\Str;
+use EloquentFilter\Filterable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Str;
-use App\Models\Country;
-use Illuminate\Support\Facades\Auth;
 
 class Customer extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens,
-        HasFactory,
-        HasProfilePhoto,
-        Notifiable,
-        CamelCasing,
-        TwoFactorAuthenticatable;
+
+    use HasApiTokens, HasFactory,  HasProfilePhoto, Notifiable,  CamelCasing, TwoFactorAuthenticatable,  Sortable, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -93,8 +91,6 @@ class Customer extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Country::class);
     }
-
-
         /**
      * Determines one-to-many relation
      *

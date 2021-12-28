@@ -24,6 +24,7 @@
           <thead>
             <tr>
               <th>Id</th>
+              <th>Date</th>
               <th>Customer Name</th>
               <th>Email</th>
               <th>Package</th>
@@ -36,11 +37,12 @@
           <tbody>
             <tr v-for="(row, index) in rows" :key="index">
               <td>{{ row.id }}</td>
+              <td>{{ row.dateFormatted }}</td>
               <td>{{ row.customer.name }}</td>
               <td>{{ row.customer.email }}</td>
               <td>{{ row.package.name }}</td>
               <td>{{ row.package.type }}</td>
-              <td>{{ row.package.price }}</td>
+              <td>${{ row.package.price }}</td>
               <td>{{ row.paymentMethod }}</td>
               <td class="flex">
                 <Link class="btn btn-success mr-2" title="Details" :href="route('subscriptions.show', row.id)"

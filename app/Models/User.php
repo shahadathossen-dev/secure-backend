@@ -19,15 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,
-        HasFactory,
-        HasProfilePhoto,
-        Notifiable,
-        HasRoles,
-        HasPermissions,
-        SoftDeletes,
-        CamelCasing,
-        TwoFactorAuthenticatable, Filterable, Sortable;
+    use HasApiTokens,  HasFactory,  HasProfilePhoto, Notifiable,  HasRoles, HasPermissions, SoftDeletes, CamelCasing, TwoFactorAuthenticatable, Filterable, Sortable;
 
     /**
      * The attributes that are mass assignable.

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class MassageSeeder extends Seeder
+class MessageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,6 @@ class MassageSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Massage::factory(30)->create();
-
+        \App\Models\Message::factory(30)->create();
     }
 }
