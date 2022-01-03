@@ -2521,6 +2521,8 @@ video {
 	margin-left: 1.5rem;
 }.mb-4 {
 	margin-bottom: 1rem;
+}.-mt-px {
+	margin-top: -1px;
 }.mb-2 {
 	margin-bottom: 0.5rem;
 }.mr-4 {
@@ -2535,8 +2537,6 @@ video {
 	margin-bottom: 0.25rem;
 }.mr-6 {
 	margin-right: 1.5rem;
-}.-mt-px {
-	margin-top: -1px;
 }.block {
 	display: block;
 }.inline-block {
@@ -2617,10 +2617,10 @@ video {
 	max-width: 80rem;
 }.max-w-xl {
 	max-width: 36rem;
-}.max-w-full {
-	max-width: 100%;
 }.max-w-6xl {
 	max-width: 72rem;
+}.max-w-full {
+	max-width: 100%;
 }.flex-1 {
 	flex: 1 1 0%;
 }.flex-shrink-0 {
@@ -2789,12 +2789,12 @@ video {
 }.border-gray-100 {
 	--tw-border-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-border-opacity));
-}.border-primary-500 {
-	--tw-border-opacity: 1;
-	border-color: rgba(108, 93, 212, var(--tw-border-opacity));
 }.border-gray-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
+}.border-primary-500 {
+	--tw-border-opacity: 1;
+	border-color: rgba(108, 93, 212, var(--tw-border-opacity));
 }.bg-white {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -2934,10 +2934,10 @@ video {
 	padding-top: 1rem;
 }.pb-1 {
 	padding-bottom: 0.25rem;
-}.pr-10 {
-	padding-right: 2.5rem;
 }.pt-8 {
 	padding-top: 2rem;
+}.pr-10 {
+	padding-right: 2.5rem;
 }.text-left {
 	text-align: left;
 }.text-center {
@@ -3037,6 +3037,12 @@ video {
 }.text-green-500 {
 	--tw-text-opacity: 1;
 	color: rgba(16, 185, 129, var(--tw-text-opacity));
+}.text-gray-200 {
+	--tw-text-opacity: 1;
+	color: rgba(229, 231, 235, var(--tw-text-opacity));
+}.text-gray-300 {
+	--tw-text-opacity: 1;
+	color: rgba(209, 213, 219, var(--tw-text-opacity));
 }.text-primary-500 {
 	--tw-text-opacity: 1;
 	color: rgba(108, 93, 212, var(--tw-text-opacity));
@@ -3049,12 +3055,6 @@ video {
 }.text-blue-500 {
 	--tw-text-opacity: 1;
 	color: rgba(59, 130, 246, var(--tw-text-opacity));
-}.text-gray-200 {
-	--tw-text-opacity: 1;
-	color: rgba(229, 231, 235, var(--tw-text-opacity));
-}.text-gray-300 {
-	--tw-text-opacity: 1;
-	color: rgba(209, 213, 219, var(--tw-text-opacity));
 }.underline {
 	text-decoration: underline;
 }.antialiased {

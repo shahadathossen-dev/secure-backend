@@ -82,7 +82,7 @@ class Helper
         });
         foreach ($permissions as $permission) {
             $name = $permission['n'] ?? $permission['name'];
-            $result[Str::camel($name)] = Auth::check() && Auth::user()->hasPermissionTo($name);
+            // $result[Str::camel($name)] = Auth::check() && Auth::user()->hasPermissionTo($name);
         };
 
         return $result;
