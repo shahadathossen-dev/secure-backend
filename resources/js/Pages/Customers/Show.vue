@@ -9,11 +9,7 @@
 		<!-- Email -->
 		<detail-section class="border-b" label="Email" :value="customer.email"></detail-section>
 		<!-- Country -->
-		<detail-section class="border-b" label="Country" :value="customer.country.code"></detail-section>
-		<!-- Name -->
-		<detail-section class="border-b" label="Name" :value="customer.name"></detail-section>
-		<!-- Name -->
-		<detail-section class="border-b" label="Name" :value="customer.name"></detail-section>
+		<detail-section class="border-b" label="Country" :value="customer.country.name"></detail-section>
 
 
 		<template #secondary-view>
