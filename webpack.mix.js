@@ -28,6 +28,4 @@ if (mix.inProduction()) {
     mix.version();
 }
 
-mix.browserSync('http://admin-securewebvpn.test')
-
-// securewebvpn
+mix.browserSync('http://secure-backend.test')

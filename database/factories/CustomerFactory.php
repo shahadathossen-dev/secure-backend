@@ -27,7 +27,6 @@ class CustomerFactory extends Factory
             'email' => $this->faker->safeEmail,
             'password' => bcrypt(111111),
             'country_id' => $this->faker->randomElement(Country::pluck('id')->toArray()),
-
         ];
     }
 }

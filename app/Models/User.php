@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Sortable;
 use App\Traits\CamelCasing;
+use App\Traits\HasFilterOption;
 use Illuminate\Support\Str;
 use EloquentFilter\Filterable;
 use Laravel\Sanctum\HasApiTokens;
@@ -59,7 +60,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url', 'role',
+        'profilePhotoUrl', 'role',
     ];
 
     /**
@@ -68,6 +69,27 @@ class User extends Authenticatable
      * @var array
      */
     protected $with = ['roles', 'country'];
+
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 25;
+
+    /**
+     * Available sortable fields
+     *
+     * @var array
+     */
+    public $sortable = ['*'];
+
+    /**
+     * Set the default sort citeria
+     *
+     * @var array
+     */
+    protected $defaultSortCriteria = ['id,desc'];
 
     /**
      * Get the custom permissions name of the resource

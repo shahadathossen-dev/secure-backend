@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -82,7 +83,9 @@ class Helper
         });
         foreach ($permissions as $permission) {
             $name = $permission['n'] ?? $permission['name'];
-            // $result[Str::camel($name)] = Auth::check() && Auth::user()->hasPermissionTo($name);
+            $authUser =  Auth::user();
+            $authUserModel = $authUser ? User::findOrFail($authUser->id) : NULL;
+            $result[Str::camel($name)] = $authUserModel && $authUserModel->hasPermissionTo($name);
         };
 
         return $result;

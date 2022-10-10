@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             CountrySeeder::class,
             CategorySeeder::class,
+            CustomerSeeder::class,
             UserSeeder::class,
             MessageSeeder::class,
         ]);

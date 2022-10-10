@@ -25,7 +25,7 @@ class UserController extends Controller
         // Start from here ...
         return Inertia::render('Users/Index', [
             'users' => User::filter($request->all())
-                ->withoutSuperAdmin()
+                // ->withoutSuperAdmin()
                 ->sorted()
                 ->paginate()
                 ->withQueryString(),

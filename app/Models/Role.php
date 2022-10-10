@@ -15,6 +15,7 @@ class Role extends Base
      *
      * @var string
      */
+    public const ADMIN = 'Admin';
     public const SUPER_ADMIN = 'Super Admin';
 
     /**

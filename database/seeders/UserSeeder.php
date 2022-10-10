@@ -15,17 +15,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::updateOrCreate(
-            [
-                'email' => 'admin@example.com'
-            ],
+        // $admin = User::updateOrCreate(
+        //     [
+        //         'email' => 'admin@example.com'
+        //     ],
 
-            [
-                'name'     => 'Admin',
-                'password' => bcrypt(111111),
-            ],
-        );
+        //     [
+        //         'name'     => 'Admin',
+        //         'password' => bcrypt(111111),
+        //     ],
+        // );
 
-        $admin->assignRole(Role::SUPER_ADMIN);
+        // $admin->assignRole(Role::SUPER_ADMIN);
+
+        User::factory(10)->create();
+
     }
 }

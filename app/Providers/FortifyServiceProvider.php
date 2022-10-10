@@ -53,9 +53,9 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(ValidateRecaptcha::class, function ($app) {
-            return new ValidateRecaptcha($app->make(LoginRateLimiter::class), config('recaptcha.secret_key'));
-        });
+        // $this->app->bind(ValidateRecaptcha::class, function ($app) {
+        //     return new ValidateRecaptcha($app->make(LoginRateLimiter::class), config('recaptcha.secret_key'));
+        // });
 
         // Fortify::authenticateThrough(function (Request $request) {
         //     return array_filter([

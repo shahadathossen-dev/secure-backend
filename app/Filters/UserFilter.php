@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace App\Filters;
 
 use EloquentFilter\ModelFilter;
 
-class UserFilter extends ModelFilter
+class UserFilter extends Filter
 {
     /**
     * Related Models that have ModelFilters as well as the method on the ModelFilter
@@ -12,5 +12,12 @@ class UserFilter extends ModelFilter
     *
     * @var array
     */
-    public $relations = [];
+    public $searchRelations = [];
+
+    /**
+     * Searchable columns of the table
+     *
+     * @var array
+     */
+    public $searchColumns = ['id', 'name', 'email'];
 }

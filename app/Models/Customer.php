@@ -74,13 +74,33 @@ class Customer extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 25;
+
+    /**
+     * Available sortable fields
+     *
+     * @var array
+     */
+    public $sortable = ['*'];
+
+    /**
+     * Set the default sort citeria
+     *
+     * @var array
+     */
+    protected $defaultSortCriteria = ['id,desc'];
+
+    /**
      * Get the custom permissions name of the resource
      *
      * @var array
      */
-    public static $permissions = [
-        //
-    ];
+    public static $permissions = ['view', 'view-any', 'create', 'update', 'delete'];
+
 
     /**
      * Determines one-to-many relation

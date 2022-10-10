@@ -48,7 +48,8 @@ class RolesAndPermissionsSeeder extends Seeder
             $order++;
         }
 
-        $superAdmin = Role::firstOrCreate(['name' => Role::SUPER_ADMIN, 'guard_name' => 'web'], ['name' => Role::SUPER_ADMIN, 'guard_name' => 'web']);
-        $superAdmin->givePermissionTo(Permission::where('guard_name', 'web')->get());
+        $superAdminRole = Role::firstOrCreate(['name' => Role::SUPER_ADMIN, 'guard_name' => 'web'], ['name' => Role::SUPER_ADMIN, 'guard_name' => 'web']);
+        $adminRole = Role::firstOrCreate(['name' => Role::ADMIN, 'guard_name' => 'web'], ['name' => Role::ADMIN, 'guard_name' => 'web']);
+        $superAdminRole->givePermissionTo(Permission::where('guard_name', 'web')->get());
     }
 }

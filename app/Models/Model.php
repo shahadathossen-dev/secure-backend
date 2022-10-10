@@ -14,7 +14,6 @@ class Model extends BaseModel
 {
     use HasFactory, CamelCasing, Sortable, Filterable;
 
-
     /**
      * The number of models to return for pagination.
      *
@@ -27,7 +26,7 @@ class Model extends BaseModel
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * Available sortable fields
